@@ -20,7 +20,9 @@ public class SplitMediatorPurchaseService
     {
         var order = await _mediator.Send(new GetOrderQuery(orderId));
 
-        return await _mediator.Send(new CreateInvoiceCommand(order.Id));
+        var invoice = await _mediator.Send(new CreateInvoiceCommand(order.Id));
+
+        return invoice.Id;
     }
 
     public async Task CompletePurchaseAsync(string orderId, Guid invoiceId)
